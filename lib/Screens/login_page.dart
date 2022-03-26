@@ -6,6 +6,7 @@ import 'package:mongoapp/Screens/registration_page.dart';
 import 'package:mongoapp/Screens/widgets/header_widget.dart';
 import 'package:mongoapp/common/theme_helper.dart';
 import 'package:mongoapp/Screens/services/auth.dart';
+import 'package:mongoapp/models/user.dart';
 
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
@@ -15,6 +16,7 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
+  late UsersModel user;
   String email = "test1@gmail.com";
   String passsword = "test1";
 
@@ -122,8 +124,8 @@ class _LoginState extends State<Login> {
 
                                       Auth()
                                           .login(email, passsword)
-                                          .then((val) => {
-                                                if (val.data ==
+                                          .then(( val) => {
+                                                if (val.massage ==
                                                     "Welcome")
                                                   {
                                                     Fluttertoast.showToast(
@@ -133,19 +135,19 @@ class _LoginState extends State<Login> {
                                                             MaterialPageRoute(
                                                                 builder:
                                                                     (context) =>
-                                                                        ProfilePage()),
+                                                                        ProfilePage( user: val,)),
                                                             (Route<dynamic>
                                                                     route) =>
                                                                 false)
                                                   }
-                                                  else if (val.data ==
+                                                  else if (val.massage ==
                                                     "Fill all fields")
                                                   {
                                                     Fluttertoast.showToast(
                                                         msg: "Fill all fields"),
                                                     
                                                   }
-                                                  else if (val.data ==
+                                                  else if (val.massage ==
                                                     "Invalid credentials")
                                                   {
                                                     Fluttertoast.showToast(

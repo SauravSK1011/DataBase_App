@@ -127,9 +127,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                               email = value!;
                             }),
                             validator: (val) {
-                              if ((val!.isEmpty) &&
-                                  !RegExp(r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?)*$")
-                                      .hasMatch(val)) {
+                              if ((val!.isEmpty) ||(!val.contains("@"))) {
                                 return "Enter a valid email address";
                               }
                               return null;
@@ -148,8 +146,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                               phone = myInt;
                             }),
                             validator: (val) {
-                              if ((val!.isEmpty) &&
-                                  RegExp(r"^(\d+)*$").hasMatch(val)) {
+                              if ((val!.isEmpty) ||(val.length!=10)) {
                                 return "Enter a valid phone number";
                               }
                               return null;
@@ -167,7 +164,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                               passsword = value!;
                             }),
                             validator: (val) {
-                              if (val!.isEmpty) {
+                              if ((val!.isEmpty)&&(val.length>6)) {
                                 return "Please enter your password";
                               }
                               return null;
@@ -185,8 +182,8 @@ class _RegistrationPageState extends State<RegistrationPage> {
                               cpasssword = value!;
                             }),
                             validator: (val) {
-                              if (val!.isEmpty) {
-                                return "Please enter your password";
+                              if ((val!.isEmpty)) {
+                                return "Password not matching";
                               }
                               // else if(passsword!=val){
                               //   return "enter your password";
@@ -266,7 +263,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                                     .then((val) {
                                   if (val.data=="Account Created") {
                                     Fluttertoast.showToast(
-                                        msg: "Register donn");
+                                        msg: "Register Done");
                                     Navigator.of(context).pushAndRemoveUntil(
                                         MaterialPageRoute(
                                             builder: (context) => Login()),

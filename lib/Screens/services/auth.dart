@@ -10,7 +10,7 @@ class Auth {
   register(String name, String email, int phone, String work, String password,
       String cpassword) async {
     try {
-      var a = await dio.post('http://192.168.56.1:3000/register',
+      var a = await dio.post('https://sskserver.herokuapp.com/register',
           data: {
             "name": name,
             "email": email,
@@ -39,7 +39,7 @@ class Auth {
     try {
       HashMap h = new HashMap();
 
-      var a = await dio.post('http://192.168.56.1:3000/login',
+      var a = await dio.post('https://sskserver.herokuapp.com/login',
           data: {
             "email": email,
             "passward": password,

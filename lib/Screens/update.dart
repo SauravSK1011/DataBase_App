@@ -1,25 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:mongoapp/Screens/login_page.dart';
+import 'package:mongoapp/Screens/profile_page.dart';
 import 'package:mongoapp/Screens/services/auth.dart';
 import 'package:mongoapp/Screens/widgets/header_widget.dart';
 import 'package:mongoapp/common/theme_helper.dart';
+import 'package:mongoapp/models/user.dart';
 
-class RegistrationPage extends StatefulWidget {
-  const RegistrationPage({Key? key}) : super(key: key);
-
+class UpdatePage extends StatefulWidget {
+  const UpdatePage({Key? key, required this.user}) : super(key: key);
+  final UsersModel user;
   @override
-  State<RegistrationPage> createState() => _RegistrationPageState();
+  State<UpdatePage> createState() => _UpdatePageState();
 }
 
-class _RegistrationPageState extends State<RegistrationPage> {
+class _UpdatePageState extends State<UpdatePage> {
   final _formKey = GlobalKey<FormState>();
   String name = "test1";
-  String email = "test1@gmail.com";
   int phone = 1234567898;
   String work = "dev";
-  String passsword = "test1";
-  String cpasssword = "test1";
 
   bool checkedValue = false;
   bool checkboxValue = false;
@@ -120,24 +119,6 @@ class _RegistrationPageState extends State<RegistrationPage> {
                         SizedBox(height: 20.0),
                         Container(
                           child: TextFormField(
-                            decoration: ThemeHelper().textInputDecoration(
-                                "E-mail address", "Enter your email"),
-                            keyboardType: TextInputType.emailAddress,
-                            onSaved: (value) => setState(() {
-                              email = value!;
-                            }),
-                            validator: (val) {
-                              if ((val!.isEmpty) ||(!val.contains("@"))) {
-                                return "Enter a valid email address";
-                              }
-                              return null;
-                            },
-                          ),
-                          decoration: ThemeHelper().inputBoxDecorationShaddow(),
-                        ),
-                        SizedBox(height: 20.0),
-                        Container(
-                          child: TextFormField(
                             keyboardType: TextInputType.number,
                             decoration: ThemeHelper().textInputDecoration(
                                 "Mobile Number", "Enter your mobile number"),
@@ -146,7 +127,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                               phone = myInt;
                             }),
                             validator: (val) {
-                              if ((val!.isEmpty) ||(val.length!=10)) {
+                              if ((val!.isEmpty) || (val.length != 10)) {
                                 return "Enter a valid phone number";
                               }
                               return null;
@@ -154,46 +135,6 @@ class _RegistrationPageState extends State<RegistrationPage> {
                           ),
                           decoration: ThemeHelper().inputBoxDecorationShaddow(),
                         ),
-                        SizedBox(height: 20.0),
-                        Container(
-                          child: TextFormField(
-                            obscureText: true,
-                            decoration: ThemeHelper().textInputDecoration(
-                                "Password*", "Enter your password"),
-                            onSaved: (value) => setState(() {
-                              passsword = value!;
-                            }),
-                            validator: (val) {
-                              if ((val!.isEmpty)&&(val.length>6)) {
-                                return "Please enter your password";
-                              }
-                              return null;
-                            },
-                          ),
-                          decoration: ThemeHelper().inputBoxDecorationShaddow(),
-                        ),
-                        SizedBox(height: 15.0),
-                        Container(
-                          child: TextFormField(
-                            obscureText: true,
-                            decoration: ThemeHelper().textInputDecoration(
-                                "Confirm Password*", "Enter your password"),
-                            onSaved: (value) => setState(() {
-                              cpasssword = value!;
-                            }),
-                            validator: (val) {
-                              if ((val!.isEmpty)) {
-                                return "Password not matching";
-                              }
-                              // else if(passsword!=val){
-                              //   return "enter your password";
-                              // }
-                              return null;
-                            },
-                          ),
-                          decoration: ThemeHelper().inputBoxDecorationShaddow(),
-                        ),
-                        SizedBox(height: 15.0),
                         FormField<bool>(
                           builder: (state) {
                             return Column(
@@ -246,7 +187,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                               padding:
                                   const EdgeInsets.fromLTRB(40, 10, 40, 10),
                               child: Text(
-                                "Register".toUpperCase(),
+                                "Update".toUpperCase(),
                                 style: const TextStyle(
                                   fontSize: 20,
                                   fontWeight: FontWeight.bold,
@@ -258,16 +199,15 @@ class _RegistrationPageState extends State<RegistrationPage> {
                               if (_formKey.currentState!.validate()) {
                                 _formKey.currentState?.save();
                                 Auth()
-                                    .register(name, email, phone, work,
-                                        passsword, cpasssword)
+                                    .update(
+                                        name, widget.user.email, phone, work)
                                     .then((val) {
-                                  if (val.data=="Account Created") {
-                                    Fluttertoast.showToast(
-                                        msg: "Register Done");
-                                    Navigator.of(context).pushAndRemoveUntil(
+                                  if (val.data["Massage"] == "Update Done") {
+                                    Fluttertoast.showToast(msg: "Update Done");
+                                    Navigator.of(context).push(
                                         MaterialPageRoute(
-                                            builder: (context) => Login()),
-                                        (Route<dynamic> route) => false);
+                                            builder: (context) =>
+                                                Login()));
                                   }
                                 });
                               }

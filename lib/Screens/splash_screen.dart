@@ -62,9 +62,7 @@ class _SplashScreenState extends State<SplashScreen> {
           child: Container(
             height: 140.0,
             width: 140.0,
-            child: const Center(
-              child: Icon(Icons.android_outlined, size: 128,),
-            ),
+            child:  ClipRRect(borderRadius: BorderRadius.circular(150),child: Image.asset("assets/Icon.jpg",fit: BoxFit.fill,)),
             decoration: BoxDecoration(
               shape: BoxShape.circle,
               color: Colors.white,

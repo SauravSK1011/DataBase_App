@@ -17,12 +17,15 @@ class Auth {
             "phone": phone,
             "work": work,
             "passward": password,
-            "cpassward": cpassword
+            "cpassward": cpassword,
+            "address": "address"
+
           },
           options:
               Options(contentType: Headers.formUrlEncodedContentType, headers: {
             "Content-Type": "application/json",
           }));
+          print("A is");
       print(a);
       return a;
     } on DioError catch (e) {
@@ -31,6 +34,49 @@ class Auth {
           );
     }
   }
+  update(String name, String email, int phone, String work) async {
+    try {
+      var a = await dio.post('https://sskserver.herokuapp.com/update',
+          data: {
+            "name": name,
+            "email": email,
+            "phone": phone,
+            "work": work,
+          },
+          options:
+              Options(contentType: Headers.formUrlEncodedContentType, headers: {
+            "Content-Type": "application/json",
+          }));
+          print("A is");
+      print(a);
+      return a;
+    } on DioError catch (e) {
+      Fluttertoast.showToast(msg: e.response.toString()
+          // "Error"e,
+          );
+    }
+  }
+
+  addaddress(String email, String address) async {
+    try {
+      var a = await dio.post('https://sskserver.herokuapp.com/addaddress',
+          data: {"email": email, "address": address},
+          options:
+              Options(contentType: Headers.formUrlEncodedContentType, headers: {
+            "Content-Type": "application/json",
+          }));print("A is");
+      print(a);
+      return a;
+    } on DioError catch (e) {
+            print(e);
+
+      Fluttertoast.showToast(msg: e.response.toString()
+          // "Error"e,
+          );
+    }
+  }
+
+  
 
   login(
     String email,
@@ -64,14 +110,14 @@ class Auth {
       // print(a.data["Data"]["tokens"][((a.data["Data"]["tokens"]).length) - 1]
       //     ["token"]);
 
-     UsersModel user= UsersModel(
-       massage:a.data["Massage"],
+      UsersModel user = UsersModel(
+          massage: a.data["Massage"],
           name: a.data["Data"]["name"],
           email: a.data["Data"]["email"],
           work: a.data["Data"]["work"],
           phone: a.data["Data"]["phone"],
-          token: a.data["Data"]["tokens"][((a.data["Data"]["tokens"]).length) - 1]["token"]
-          );
+          token: a.data["Data"]["tokens"]
+              [((a.data["Data"]["tokens"]).length) - 1]["token"]);
       return user;
     } on DioError catch (e) {
       Fluttertoast.showToast(msg: e.response.toString()

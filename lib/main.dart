@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mongoapp/Screens/locationscreen.dart';
 import 'package:mongoapp/Screens/splash_screen.dart';
 
 void main() {
@@ -11,12 +12,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(debugShowCheckedModeBanner: false,
-      title: 'MongoApp',
+      title: 'DataBaseApp',
       theme: ThemeData(
         primarySwatch: Colors.blue,
         accentColor:Colors.green
       ),
-      home: const SplashScreen(),
+      home:  SplashScreen(),
     );
   }
 }

@@ -5,10 +5,12 @@ class HeaderWidget extends StatefulWidget {
   final bool _showIcon;
   final IconData _icon;
 
-  const HeaderWidget(this._height, this._showIcon, this._icon, {Key? key}) : super(key: key);
+  const HeaderWidget(this._height, this._showIcon, this._icon, {Key? key})
+      : super(key: key);
 
   @override
-  _HeaderWidgetState createState() => _HeaderWidgetState(_height, _showIcon, _icon);
+  _HeaderWidgetState createState() =>
+      _HeaderWidgetState(_height, _showIcon, _icon);
 }
 
 class _HeaderWidgetState extends State<HeaderWidget> {
@@ -20,18 +22,15 @@ class _HeaderWidgetState extends State<HeaderWidget> {
 
   @override
   Widget build(BuildContext context) {
-    double width = MediaQuery
-        .of(context)
-        .size
-        .width;
+    double width = MediaQuery.of(context).size.width;
 
     return Container(
       child: Stack(
         children: [
           ClipPath(
             child: Container(
-              decoration:  BoxDecoration(
-                gradient:  LinearGradient(
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
                     colors: [
                       Theme.of(context).primaryColor.withOpacity(0.4),
                       Theme.of(context).accentColor.withOpacity(0.4),
@@ -39,23 +38,20 @@ class _HeaderWidgetState extends State<HeaderWidget> {
                     begin: const FractionalOffset(0.0, 0.0),
                     end: const FractionalOffset(1.0, 0.0),
                     stops: [0.0, 1.0],
-                    tileMode: TileMode.clamp
-                ),
+                    tileMode: TileMode.clamp),
               ),
             ),
-            clipper:  ShapeClipper(
-                [
-                  Offset(width / 5, _height),
-                  Offset(width / 10 * 5, _height - 60),
-                  Offset(width / 5 * 4, _height + 20),
-                  Offset(width, _height - 18)
-                ]
-            ),
+            clipper: ShapeClipper([
+              Offset(width / 5, _height),
+              Offset(width / 10 * 5, _height - 60),
+              Offset(width / 5 * 4, _height + 20),
+              Offset(width, _height - 18)
+            ]),
           ),
           ClipPath(
             child: Container(
-              decoration:  BoxDecoration(
-                gradient:  LinearGradient(
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
                     colors: [
                       Theme.of(context).primaryColor.withOpacity(0.4),
                       Theme.of(context).accentColor.withOpacity(0.4),
@@ -63,23 +59,20 @@ class _HeaderWidgetState extends State<HeaderWidget> {
                     begin: const FractionalOffset(0.0, 0.0),
                     end: const FractionalOffset(1.0, 0.0),
                     stops: [0.0, 1.0],
-                    tileMode: TileMode.clamp
-                ),
+                    tileMode: TileMode.clamp),
               ),
             ),
-            clipper:  ShapeClipper(
-                [
-                  Offset(width / 3, _height + 20),
-                  Offset(width / 10 * 8, _height - 60),
-                  Offset(width / 5 * 4, _height - 60),
-                  Offset(width, _height - 20)
-                ]
-            ),
+            clipper: ShapeClipper([
+              Offset(width / 3, _height + 20),
+              Offset(width / 10 * 8, _height - 60),
+              Offset(width / 5 * 4, _height - 60),
+              Offset(width, _height - 20)
+            ]),
           ),
           ClipPath(
             child: Container(
-              decoration:  BoxDecoration(
-                gradient:  LinearGradient(
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
                     colors: [
                       Theme.of(context).primaryColor,
                       Theme.of(context).accentColor,
@@ -87,18 +80,15 @@ class _HeaderWidgetState extends State<HeaderWidget> {
                     begin: const FractionalOffset(0.0, 0.0),
                     end: const FractionalOffset(1.0, 0.0),
                     stops: [0.0, 1.0],
-                    tileMode: TileMode.clamp
-                ),
+                    tileMode: TileMode.clamp),
               ),
             ),
-            clipper:  ShapeClipper(
-                [
-                  Offset(width / 5, _height),
-                  Offset(width / 2, _height - 40),
-                  Offset(width / 5 * 4, _height - 80),
-                  Offset(width, _height - 20)
-                ]
-            ),
+            clipper: ShapeClipper([
+              Offset(width / 5, _height),
+              Offset(width / 2, _height - 40),
+              Offset(width / 5 * 4, _height - 80),
+              Offset(width, _height - 20)
+            ]),
           ),
           Visibility(
             visible: _showIcon,
@@ -114,7 +104,6 @@ class _HeaderWidgetState extends State<HeaderWidget> {
                     bottom: 20.0,
                   ),
                   decoration: BoxDecoration(
-                    // borderRadius: BorderRadius.circular(20),
                     borderRadius: const BorderRadius.only(
                       topLeft: Radius.circular(100),
                       topRight: Radius.circular(100),
@@ -132,7 +121,6 @@ class _HeaderWidgetState extends State<HeaderWidget> {
               ),
             ),
           ),
-
         ],
       ),
     );
@@ -144,21 +132,14 @@ class ShapeClipper extends CustomClipper<Path> {
   ShapeClipper(this._offsets);
   @override
   Path getClip(Size size) {
-    var path =  Path();
-
-    path.lineTo(0.0, size.height-20);
-
-    // path.quadraticBezierTo(size.width/5, size.height, size.width/2, size.height-40);
-    // path.quadraticBezierTo(size.width/5*4, size.height-80, size.width, size.height-20);
-
-    path.quadraticBezierTo(_offsets[0].dx, _offsets[0].dy, _offsets[1].dx,_offsets[1].dy);
-    path.quadraticBezierTo(_offsets[2].dx, _offsets[2].dy, _offsets[3].dx,_offsets[3].dy);
-
-    // path.lineTo(size.width, size.height-20);
+    var path = Path();
+    path.lineTo(0.0, size.height - 20);
+    path.quadraticBezierTo(
+        _offsets[0].dx, _offsets[0].dy, _offsets[1].dx, _offsets[1].dy);
+    path.quadraticBezierTo(
+        _offsets[2].dx, _offsets[2].dy, _offsets[3].dx, _offsets[3].dy);
     path.lineTo(size.width, 0.0);
     path.close();
-
-
     return path;
   }
 

@@ -127,7 +127,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                               email = value!;
                             }),
                             validator: (val) {
-                              if ((val!.isEmpty) ||(!val.contains("@"))) {
+                              if ((val!.isEmpty) || (!val.contains("@"))) {
                                 return "Enter a valid email address";
                               }
                               return null;
@@ -146,7 +146,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                               phone = myInt;
                             }),
                             validator: (val) {
-                              if ((val!.isEmpty) ||(val.length!=10)) {
+                              if ((val!.isEmpty) || (val.length != 10)) {
                                 return "Enter a valid phone number";
                               }
                               return null;
@@ -164,7 +164,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                               passsword = value!;
                             }),
                             validator: (val) {
-                              if ((val!.isEmpty)&&(val.length>6)) {
+                              if ((val!.isEmpty) && (val.length > 6)) {
                                 return "Please enter your password";
                               }
                               return null;
@@ -261,7 +261,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                                     .register(name, email, phone, work,
                                         passsword, cpasssword)
                                     .then((val) {
-                                  if (val.data=="Account Created") {
+                                  if (val.data == "Account Created") {
                                     Fluttertoast.showToast(
                                         msg: "Register Done");
                                     Navigator.of(context).pushAndRemoveUntil(

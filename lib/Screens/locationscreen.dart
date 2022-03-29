@@ -12,8 +12,8 @@ import 'package:mongoapp/common/theme_helper.dart';
 import 'package:mongoapp/models/user.dart';
 
 class LocationScreen extends StatefulWidget {
-  const LocationScreen({Key? key,required this.user}) : super(key: key);
-final UsersModel user;
+  const LocationScreen({Key? key, required this.user}) : super(key: key);
+  final UsersModel user;
   @override
   State<LocationScreen> createState() => _LocationScreenState();
 }
@@ -21,7 +21,6 @@ final UsersModel user;
 class _LocationScreenState extends State<LocationScreen> {
   late GoogleMapController googlemapcontrollar;
   Map<MarkerId, Marker> currentmarker = {};
-  // MarkerId tempId = MarkerId("ABC");
   String address = "address";
 
   late Position position;
@@ -39,13 +38,6 @@ class _LocationScreenState extends State<LocationScreen> {
   }
 
   getcurrentposition() async {
-    // Marker marker = Marker(
-    //     markerId: tempId,
-    //     position: LatLng(-89.999, 73.125),
-    //     icon: BitmapDescriptor.defaultMarker,
-    //     infoWindow: InfoWindow(snippet: "Address"));
-    //     currentmarker[tempId ] = marker;
-
     bool serviceEnabled;
     LocationPermission permission;
 
@@ -72,11 +64,9 @@ class _LocationScreenState extends State<LocationScreen> {
       position = currentpoition;
     });
   }
-
   Future<void> GetAddressFromLatLong(double latitude, double longitude) async {
     List<Placemark> placemarks =
         await placemarkFromCoordinates(latitude, longitude);
-    print(placemarks);
     Placemark place = placemarks[0];
     var taddress =
         '${place.street}, ${place.subLocality}, ${place.locality}, ${place.postalCode}, ${place.country}';
@@ -93,7 +83,7 @@ class _LocationScreenState extends State<LocationScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return Scaffold(extendBody: true,
       body: Stack(children: [
         Container(
           height: MediaQuery.of(context).size.height,
@@ -102,9 +92,7 @@ class _LocationScreenState extends State<LocationScreen> {
               setState(() {
                 currentmarker = {};
               });
-              // final coordinates=geoloco.Coordinates(val.latitude, val.longitude);
               await GetAddressFromLatLong(val.latitude, val.longitude);
-
               getmarker(val.latitude, val.longitude);
             },
             mapType: MapType.normal,
@@ -131,7 +119,6 @@ class _LocationScreenState extends State<LocationScreen> {
               shadowStrength: 10,
               opacity: 0.2,
               width: 230,
-              //--code to remove border
               border: Border.fromBorderSide(BorderSide.none),
               borderRadius: BorderRadius.circular(10),
               child: Padding(
@@ -144,27 +131,36 @@ class _LocationScreenState extends State<LocationScreen> {
                         textAlign: TextAlign.center,
                       ),
                     ),
-                    
-                    // Container(
-                    //   decoration: ThemeHelper().buttonBoxDecoration(context),
-                    // child:
                     ElevatedButton(
                         style: ThemeHelper().buttonStyle(),
                         onPressed: () async {
-                           Auth().addaddress(widget.user.email,address).then((val) {
+                          Auth()
+                              .addaddress(widget.user.email, address)
+                              .then((val) {
                             if (val.data["Massage"] == "Done") {
-                              Fluttertoast.showToast(msg: "Done");
-                              Navigator.of(context).pushAndRemoveUntil(
-                                        MaterialPageRoute(
-                                            builder: (context) => ProfilePage(user: widget.user,)),
-                                        (Route<dynamic> route) => false);
 
-                              
+                              Fluttertoast.showToast(msg: "Done");
+                              UsersModel updateduser = UsersModel(
+                                        email: val.data["Data"]["email"],
+                                        name: val.data["Data"]["name"],
+                                        phone: val.data["Data"]["phone"],
+                                        work: val.data["Data"]["work"],
+                                        address: val.data["Data"]["address"],
+                                        token: val.data["Data"]["tokens"][
+                                            ((val.data["Data"]["tokens"])
+                                                    .length) -
+                                                1]["token"],
+                                        massage: '');
+                              Navigator.of(context).pushAndRemoveUntil(
+                                  MaterialPageRoute(
+                                      builder: (context) => ProfilePage(
+                                            user: updateduser,
+                                          )),
+                                  (Route<dynamic> route) => false);
                             }
                           });
                         },
                         child: Text("Save")),
-                    // )
                   ],
                 ),
               ),
@@ -177,7 +173,6 @@ class _LocationScreenState extends State<LocationScreen> {
 
   @override
   void dispose() {
-    // TODO: implement dispose
     super.dispose();
   }
 }

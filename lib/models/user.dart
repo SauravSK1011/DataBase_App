@@ -5,8 +5,7 @@ class UsersModel {
   int phone = 0;
   String work = "";
   String token = "";
-    String address = "";
-
+  String address = "";
 
   UsersModel(
       {required this.massage,
@@ -14,5 +13,6 @@ class UsersModel {
       required this.email,
       required this.phone,
       required this.work,
-      required this.token});
+      required this.token,
+      required this.address});
 }

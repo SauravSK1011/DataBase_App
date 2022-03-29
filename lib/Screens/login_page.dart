@@ -21,7 +21,6 @@ class _LoginState extends State<Login> {
   String passsword = "test1";
 
   double _headerHeight = 250;
-  // Key formKey1 = GlobalKey<FormState>();
   final formKey1 = GlobalKey<FormState>();
 
   @override
@@ -33,14 +32,12 @@ class _LoginState extends State<Login> {
           children: [
             Container(
               height: _headerHeight,
-              child: HeaderWidget(_headerHeight, true,
-                  Icons.login_outlined), //let's create a common header widget
+              child: HeaderWidget(_headerHeight, true, Icons.login_outlined),
             ),
             SafeArea(
               child: Container(
                   padding: EdgeInsets.fromLTRB(20, 10, 20, 10),
-                  margin: EdgeInsets.fromLTRB(
-                      20, 10, 20, 10), // This will be the login form
+                  margin: EdgeInsets.fromLTRB(20, 10, 20, 10),
                   child: Column(
                     children: [
                       const Text(
@@ -91,9 +88,6 @@ class _LoginState extends State<Login> {
                                     if (val!.isEmpty) {
                                       return "Please enter your password";
                                     }
-                                    // else if(passsword!=val){
-                                    //   return "enter your password";
-                                    // }
                                     return null;
                                   },
                                 ),
@@ -118,15 +112,13 @@ class _LoginState extends State<Login> {
                                     ),
                                   ),
                                   onPressed: () {
-                                    //After successful login we will redirect to profile page. Let's create profile page now
                                     if (formKey1.currentState!.validate()) {
-                                                                      formKey1.currentState?.save();
+                                      formKey1.currentState?.save();
 
                                       Auth()
                                           .login(email, passsword)
-                                          .then(( val) => {
-                                                if (val.massage ==
-                                                    "Welcome")
+                                          .then((val) => {
+                                                if (val.massage == "Welcome")
                                                   {
                                                     Fluttertoast.showToast(
                                                         msg: "Welcome"),
@@ -135,34 +127,34 @@ class _LoginState extends State<Login> {
                                                             MaterialPageRoute(
                                                                 builder:
                                                                     (context) =>
-                                                                        ProfilePage( user: val,)),
+                                                                        ProfilePage(
+                                                                          user:
+                                                                              val,
+                                                                        )),
                                                             (Route<dynamic>
                                                                     route) =>
                                                                 false)
                                                   }
-                                                  else if (val.massage ==
+                                                else if (val.massage ==
                                                     "Fill all fields")
                                                   {
                                                     Fluttertoast.showToast(
                                                         msg: "Fill all fields"),
-                                                    
                                                   }
-                                                  else if (val.massage ==
+                                                else if (val.massage ==
                                                     "Invalid credentials")
                                                   {
                                                     Fluttertoast.showToast(
-                                                        msg: "Invalid credentials"),
-                                                    
+                                                        msg:
+                                                            "Invalid credentials"),
                                                   }
                                               });
-                                      
                                     }
                                   },
                                 ),
                               ),
                               Container(
                                 margin: EdgeInsets.fromLTRB(10, 20, 10, 20),
-                                //child: Text('Don\'t have an account? Create'),
                                 child: Text.rich(TextSpan(children: [
                                   TextSpan(text: "Don\'t have an account? "),
                                   TextSpan(

@@ -1,5 +1,4 @@
 import 'dart:collection';
-
 import 'package:dio/dio.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:mongoapp/models/user.dart';
@@ -19,24 +18,20 @@ class Auth {
             "passward": password,
             "cpassward": cpassword,
             "address": "address"
-
           },
           options:
               Options(contentType: Headers.formUrlEncodedContentType, headers: {
             "Content-Type": "application/json",
           }));
-          print("A is");
-      print(a);
       return a;
     } on DioError catch (e) {
-      Fluttertoast.showToast(msg: e.response.toString()
-          // "Error"e,
-          );
+      Fluttertoast.showToast(msg: e.response.toString());
     }
   }
+
   update(String name, String email, int phone, String work) async {
     try {
-      var a = await dio.post('https://sskserver.herokuapp.com/update',
+      var a = await dio.post('http://10.0.2.2:3000/update',
           data: {
             "name": name,
             "email": email,
@@ -47,13 +42,9 @@ class Auth {
               Options(contentType: Headers.formUrlEncodedContentType, headers: {
             "Content-Type": "application/json",
           }));
-          print("A is");
-      print(a);
       return a;
     } on DioError catch (e) {
-      Fluttertoast.showToast(msg: e.response.toString()
-          // "Error"e,
-          );
+      Fluttertoast.showToast(msg: e.response.toString());
     }
   }
 
@@ -64,27 +55,18 @@ class Auth {
           options:
               Options(contentType: Headers.formUrlEncodedContentType, headers: {
             "Content-Type": "application/json",
-          }));print("A is");
-      print(a);
+          }));
       return a;
     } on DioError catch (e) {
-            print(e);
-
-      Fluttertoast.showToast(msg: e.response.toString()
-          // "Error"e,
-          );
+      Fluttertoast.showToast(msg: e.response.toString());
     }
   }
-
-  
 
   login(
     String email,
     String password,
   ) async {
     try {
-      HashMap h = new HashMap();
-
       var a = await dio.post('https://sskserver.herokuapp.com/login',
           data: {
             "email": email,
@@ -94,23 +76,8 @@ class Auth {
               Options(contentType: Headers.formUrlEncodedContentType, headers: {
             "Content-Type": "application/json",
           }));
-      // var responce=Uri.parse(a)
-      // var jsondata = jsonDecode(a.data);
-
-      // ignore: avoid_print
-      // for (var key in a.data.) print(key); // prints Key_1 then Key_2
-      // for (var value in a.data[1]) print(value); // prints Value_1 then Value_2
-      // for (var entry in a.data[1]) {
-      //   print(entry.key);
-      //   print(entry.value);
-
-//       var entryList = a.data.toList();
-// print(entryList[0].key);
-//       // }
-      // print(a.data["Data"]["tokens"][((a.data["Data"]["tokens"]).length) - 1]
-      //     ["token"]);
-
       UsersModel user = UsersModel(
+        address: "address",
           massage: a.data["Massage"],
           name: a.data["Data"]["name"],
           email: a.data["Data"]["email"],
@@ -120,10 +87,7 @@ class Auth {
               [((a.data["Data"]["tokens"]).length) - 1]["token"]);
       return user;
     } on DioError catch (e) {
-      Fluttertoast.showToast(msg: e.response.toString()
-          // "Error"e,
-          );
-      print(e.response.toString());
+      Fluttertoast.showToast(msg: e.response.toString());
       return e.message;
     }
   }

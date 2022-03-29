@@ -11,13 +11,11 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(debugShowCheckedModeBanner: false,
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'DataBaseApp',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        accentColor:Colors.green
-      ),
-      home:  SplashScreen(),
+      theme: ThemeData(primarySwatch: Colors.blue, accentColor: Colors.green),
+      home: SplashScreen(),
     );
   }
 }

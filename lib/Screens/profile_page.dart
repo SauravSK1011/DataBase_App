@@ -96,22 +96,7 @@ class _ProfilePageState extends State<ProfilePage> {
       ),
       body: screens[currentindex],
 
-      bottomNavigationBar:
-          // Container(
-          // decoration:  BoxDecoration(
-          //         gradient:  LinearGradient(
-          //             colors: [
-          //               Theme.of(context).primaryColor.withOpacity(0.4),
-          //               Theme.of(context).accentColor.withOpacity(0.4),
-          //             ],
-          //             begin: const FractionalOffset(0.0, 0.0),
-          //             end: const FractionalOffset(1.0, 0.0),
-          //             stops: [0.0, 1.0],
-          //             tileMode: TileMode.clamp
-          //         ),
-          //       ),
-          // child:
-          Theme(
+      bottomNavigationBar:Theme(
         data: Theme.of(context)
             .copyWith(iconTheme: const IconThemeData(color: Colors.white)),
         child: CurvedNavigationBar(
@@ -128,7 +113,6 @@ class _ProfilePageState extends State<ProfilePage> {
               });
             }),
       ),
-      // )
     );
   }
 }

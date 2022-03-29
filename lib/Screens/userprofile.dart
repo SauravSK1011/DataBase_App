@@ -3,7 +3,7 @@ import 'package:mongoapp/Screens/widgets/header_widget.dart';
 import 'package:mongoapp/models/user.dart';
 
 class UserProfile extends StatefulWidget {
-  const UserProfile({ Key? key,required this.user }) : super(key: key);
+  const UserProfile({Key? key, required this.user}) : super(key: key);
   final UsersModel user;
 
   @override
@@ -13,7 +13,8 @@ class UserProfile extends StatefulWidget {
 class _UserProfileState extends State<UserProfile> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: SingleChildScrollView(
+    return Scaffold(
+      body: SingleChildScrollView(
         child: Stack(
           children: [
             Container(
@@ -103,6 +104,11 @@ class _UserProfileState extends State<UserProfile> {
                                           subtitle: Text(
                                               widget.user.phone.toString()),
                                         ),
+                                        ListTile(
+                                          leading: Icon(Icons.email),
+                                          title: Text("Address"),
+                                          subtitle: Text(widget.user.address),
+                                        ),
                                       ],
                                     ),
                                   ],
@@ -120,7 +126,6 @@ class _UserProfileState extends State<UserProfile> {
           ],
         ),
       ),
-      
     );
   }
 }

@@ -3,6 +3,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:mongoapp/Screens/login_page.dart';
 import 'package:mongoapp/Screens/profile_page.dart';
 import 'package:mongoapp/Screens/services/auth.dart';
+import 'package:mongoapp/Screens/userprofile.dart';
 import 'package:mongoapp/Screens/widgets/header_widget.dart';
 import 'package:mongoapp/common/theme_helper.dart';
 import 'package:mongoapp/models/user.dart';
@@ -204,10 +205,22 @@ class _UpdatePageState extends State<UpdatePage> {
                                     .then((val) {
                                   if (val.data["Massage"] == "Update Done") {
                                     Fluttertoast.showToast(msg: "Update Done");
-                                    Navigator.of(context).push(
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                Login()));
+                                    UsersModel updateduser = UsersModel(
+                                        email: val.data["Data"]["email"],
+                                        name: val.data["Data"]["name"],
+                                        phone: val.data["Data"]["phone"],
+                                        work: val.data["Data"]["work"],
+                                        address: val.data["Data"]["address"],
+                                        token: val.data["Data"]["tokens"][
+                                            ((val.data["Data"]["tokens"])
+                                                    .length) -
+                                                1]["token"],
+                                        massage: '');
+                                    Navigator.of(context)
+                                        .push(MaterialPageRoute(
+                                            builder: (context) => ProfilePage(
+                                                  user: updateduser,
+                                                )));
                                   }
                                 });
                               }

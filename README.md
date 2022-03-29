@@ -1,16 +1,20 @@
-# mongoapp
+# DataBase App
 
 A new Flutter project.
 
-## Getting Started
+Download App :- https://drive.google.com/drive/folders/1FKkF8Db7JDN70fRuOrWaXGCNSyenvgPI?usp=sharing
 
-This project is a starting point for a Flutter application.
+Cloning this repository
 
-A few resources to get you started if this is your first Flutter project:
+```bash
+  $ git clone https://github.com/SauravSK1011/DataBase_App.git
+```
+**Installing dependencies**
+```bash
+flutter pub get
+```
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+With all dependencies installed  you can run the app
+ ```bash
+flutter run
+```
